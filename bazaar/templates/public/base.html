@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce Web {% block title %}
+    {% endblock  %}  </title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a href="" class="navbar-brand"><i class="fas fa-shopping"></i>Bazaar</a>
+    
+    <form action="{% url 'search' %}"  class="d-flex mx-auto" >
+        <input type="search" name="search" size="66" class="form-control"name="search" placeholder="Search Here">
+        <input type="submit" name="submit" class="btn btn-danger" value="Go">
+    </form>
+    <ul class="navbar-nav">
+    <li class="nav-item"><a href="" class="nav-link">Home</a></li>
+    <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
+
+    {% if user.is_authenticated%}
+
+        <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link btn btn-danger text-white">Logout</a></li>
+
+
+    {% else %}
+            <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link btn btn-success">Login</a></li>
+            <li class="nav-item"><a href="{% url 'account_signup' %}" class="nav-link ">SignUp</a></li>
+
+    {% endif %}
+        <li class="nav-item"><a href="" class="nav-link text-white"><strong>Cart</strong><span class="badge bg-warning">9</span></a></li>
+
+    
+    </ul>
+    </nav>
+
+
+    {% block content %}
+    {% endblock  %}
+
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/ab764c8fe0.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

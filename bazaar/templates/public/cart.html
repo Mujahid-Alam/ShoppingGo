@@ -1,0 +1,41 @@
+{% extends 'public/base.html' %}
+
+{% block title %} Card {% endblock  %}
+
+{% block content %}
+
+<div class="container">
+<div class="row mt-5">
+<div class="col-lg-9">
+    <div class="card">
+    <div class="card-body">
+{% for order_item in order.items.all %}
+        <div class="media">
+        <img src="{{ order_item.item.image.url }}" alt="" class="mr-3" class="object.fit:cover">
+        <div class="media-body">
+            <h4>{{order_item.item.title}}</h4>
+            <a href="{% url 'remove-from-cart' order_item.item.slug %}" class="btn btn-danger">-</a>
+                <span>{{ order_item.qty }}</span>
+            <a href="{% url 'add-to-cart' order_item.item.slug %}" class="btn btn-success">+</a>
+        </div>
+        </div>
+{% endfor %}
+    </div>
+    </div>
+</div>
+<div class="col-lg-3">
+<ul>
+<li class="list-group-item list-group-item-action">Price Detail</li>
+<li class="list-group-item list-group-item-action">Total Amount<span class="float-left">1500/-</span></li>
+<li class="list-group-item list-group-item-action">Total Discount<span class="float-right">1500/-</span></li>
+<li class="list-group-item list-group-item-action">Total Payable Amount<span class="float-right">1500/-</span></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+{% endblock  %}
+
+
+

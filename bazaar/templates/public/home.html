@@ -1,0 +1,42 @@
+{% extends 'public/base.html' %}
+
+{% block title %}
+homepages
+{% endblock  %}
+
+{% block content %}
+<div class="container ">
+    <div class="row mt-4">
+        <div class="col-lg-3">
+            <div class="list-group">
+                <div class="list-group">
+                <a href="" class="list-group-item list-group-item-action bg-danger text-white text-center">Category</a>
+                {% for c in cat %}
+                    <a href="{% url 'cat' c.slug %}" class="list-group-item list-group-item-action">{{ c.title }}</a>
+                {% endfor %}
+            
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+        <div class="row">
+            {% for x in item %}
+            <div class="col-lg-3">
+                <div class="card border-0">
+                <img src="{{ x.image.url}}" class="border border-muted"  style="object-fit:cover; height:200px" alt="">
+                <div class="card-body">
+                
+                </div>
+                <h2 class="text-truncate">{{x.title}}</h2>
+                <p class="lead"><del>{{x.price}}</del>{{x.discount_price}}</p>
+                <a href="{% url 'product' x.slug %}" class="stretched-link btn btn-success">Add to cart</a>
+                </div>
+            </div>
+             {% endfor %}
+        </div>
+       
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
