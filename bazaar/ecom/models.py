@@ -38,8 +38,43 @@ class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     qty = models.IntegerField(default=1)
 
+    # def __str__(self):
+    #     return f"{self.qty} of {self.item.title}"
+
+    # def get_total_price(self):
+    #     return self.qty * self.item.price
+
+    # def get_total_discount_price(self):
+    #     return self.qty * self.item.discount_price
+
+    # def get_total_saving(self):
+    #     return self.get.total_price() - self.get.total_discount_price()
+
+    # def get_final_price(self):
+    #     if self.item.discount_price:
+    #         return self.get.total_discount_price()
+    #     else:
+    #         return self.get_total_price
+
+###################################################################
     def __str__(self):
         return f"{self.qty} of {self.item.title}"
+
+    def get_total_price(self):
+        return self.qty * self.item.price
+
+    def get_total_discount_price(self):
+        return self.qty * self.item.discount_price
+
+    def get_total_saving(self):
+        return self.get_total_price() - self.get_total_discount_price()
+
+    def get_final_price(self):
+        if self.item.discount_price:
+            return self.get.total_discount_price()
+        else:
+            return self.get_total_price()
+    
 
 class Address(models.Model):
     user  = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -76,6 +111,28 @@ class Order(models.Model):
     def __str__(self):
         return self.user.username
     
+    def get_total_amount(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_final_price()
+        if self.coupon:
+            total -= self.coupon.amount
+
+        return total
+
+    def get_total_saving_amount(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_total_saving()
+        return total
+
+    def get_actual_total_amount(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_total_price()
+        return total
+
+
 
 
 

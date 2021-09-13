@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +45,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'ecom',
+    
+    
+    
 ]
 
 SITE_ID = 1
@@ -142,3 +146,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/MEDIA/'
 MEDIA_ROOT = BASE_DIR / "media"
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG : "alert-info",
+    messages.INFO : "alert-info",
+    messages.SUCCESS : "alert-success",
+    messages.ERROR : "alert-danger",
+    messages.WARNING : "alert-warning",
+}

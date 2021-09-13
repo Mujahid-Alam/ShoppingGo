@@ -5,35 +5,90 @@
 {% block content %}
 
 <div class="container">
-<div class="row mt-5">
+    <div class="row mt-2">
+        <div class="col-lg-12">
+            <h2 >My Carts</h2>
+        </div>
+
 <div class="col-lg-9">
+    {% for order_item in order.items.all %}
     <div class="card">
     <div class="card-body">
-{% for order_item in order.items.all %}
+
         <div class="media">
-        <img src="{{ order_item.item.image.url }}" alt="" class="mr-3" class="object.fit:cover">
         <div class="media-body">
-            <h4>{{order_item.item.title}}</h4>
-            <a href="{% url 'remove-from-cart' order_item.item.slug %}" class="btn btn-danger">-</a>
-                <span>{{ order_item.qty }}</span>
-            <a href="{% url 'add-to-cart' order_item.item.slug %}" class="btn btn-success">+</a>
+
+        <img src="{{ order_item.item.image.url }}" alt="" class="mr-3" height="130px" width="160px">
+
+            <h5 class="">{{order_item.item.title}}</h5>
+            <a href="{% url 'remove-from-cart' order_item.item.slug %}" class="btn btn-secondary"><strong><i class="fas fa-minus"></i></strong></a>
+                <span class="text-bold">{{ order_item.qty }}</span>
+            <a href="{% url 'add-to-cart' order_item.item.slug %}" class="btn btn-success"><i class="fas fa-plus"></i></a>
+            <br/>
+            
+            <h4 class="d-inline text-success mt-4">₹{{order_item.get_total_discount_price}}/-</h4>
+            <h5 class="d-inline text-danger"><del>₹{{order_item.get_total_price}}/</del></h5>
+            <h6 class="d-inline text-success small">₹({{order_item.get_total_saving}})</h6>
         </div>
         </div>
-{% endfor %}
     </div>
     </div>
+    {% endfor %}
 </div>
+
+
 <div class="col-lg-3">
-<ul>
-<li class="list-group-item list-group-item-action">Price Detail</li>
-<li class="list-group-item list-group-item-action">Total Amount<span class="float-left">1500/-</span></li>
-<li class="list-group-item list-group-item-action">Total Discount<span class="float-right">1500/-</span></li>
-<li class="list-group-item list-group-item-action">Total Payable Amount<span class="float-right">1500/-</span></li>
+{% for or in order.items.all%}
+<ul class="list-group border border-success">
+<li class="list-group-item list-group-item-action bg-dark text-white text-center">Price Detail</li>
+<li class="list-group-item list-group-item-action">Total Amount<span class="float-left">Rs. {{or.get_total_price}} /-</span></li>
+<li class="list-group-item list-group-item-action">Total Discount<span class="float-right">Rs. {{or.get_total_discount_price}}/-</span></li>
+
+ {% if object.coupon  %}
+<li class="list-group-item list-group-item-action bg-warning">Coupon Discount <span class="float-right">Rs.{{or.get_total_saving}}/-</span></li>
+
+{% endif %} 
+<li class="list-group-item list-group-item-action">Total Payable &nbsp;<span class="float-right"><strong>Rs.{{or.get_total_saving }}/-</strong></span></li>
 </ul>
+
+<a href="{% url 'checkout' %}" class="btn btn-success text-white w-100">Checkout</a><br/>
+<a href="{% url 'home' %}" class="btn btn-warning text-white w-100">Buy More</a><br/>
+
+
+{% if not object.coupon %}
+
+<div class="card">
+    <div class="card-body">
+    <form action="{% url 'addCoupon' %}" method="POST">
+    {% csrf_token %}
+        <div class="input-group">
+            <input type="text "name="code" class="form-control" placeholder="Enter the code">
+            <input type="submit" class="btn btn-success" value="Apply">
+        </div>
+    </form>         
+    </div>
+    
+</div>
+
+{% else %}
+    <span class="badge badge-success badge-pill"> {{ object.coupon.code }} 
+    <a href="{% url 'removeCoupon' %}" class="small text-white" >&times;</a>
+ </span>
+
+{% endif %}
+
+
+
+
+
+
 
 </div>
 </div>
+
+
 </div>
+{%endfor%}
 
 {% endblock  %}
 
