@@ -10,7 +10,7 @@ homepages
         <div class="col-lg-3">
             <div class="list-group">
                 <div class="list-group">
-                {% comment %} <a href="" class="list-group-item list-group-item-action bg-secondary text-white "><i class="fas fa-arrow-alt-circle-down "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Category</strong></a> {% endcomment %}
+                <a href="" class="list-group-item list-group-item-action bg-secondary text-white "><i class="fas fa-arrow-alt-circle-down "></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Category</strong></a>
                 {% for c in cat %}
                     <a href="{% url 'cat' c.slug %}" class="list-group-item list-group-item-action">{{ c.title }}</a>
                 {% endfor %}
@@ -65,12 +65,12 @@ homepages
             </div>
             <div class="row mt-3">
             <div class="card">
-            <div class="card-header">Description</div>
+            <div class="card-header">Descriptions</div>
             <div class="card-body">
             <p>
             <div class="row">
                 <div class="col-lg-8">
-                <p>{{item.description}}</p>
+                    <p>{{item.description}}</p>
                 </div>
             </div>
              
