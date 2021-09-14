@@ -10,7 +10,7 @@ homepages
      <div class="col-lg-3">
             <div class="list-group">
                 <div class="list-group">
-                <a href="" class="list-group-item list-group-item-action bg-secondary text-white text-center">Categoriess</a>
+                <a href="" class="list-group-item list-group-item-action bg-secondary text-white text-center">Category</a>
                 {% for c in cat %}
                     <a href="{% url 'cat' c.slug %}" class="list-group-item list-group-item-action">{{ c.title }}</a>
                 {% endfor %}
