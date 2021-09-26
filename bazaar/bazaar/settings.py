@@ -26,7 +26,7 @@ SECRET_KEY = '#i2_@$y_=9ba2a@8imj8v6uq(skh$y9h1-od#emd-0lt2p2&41'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dnmshop.herokuapp.com']
 
 
 # Application definition
@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'bazaar.urls'
@@ -146,7 +147,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/MEDIA/'
 MEDIA_ROOT = BASE_DIR / "media"
-
+STATIC_ROOT = BASE_DIR,'static'
 
 MESSAGE_TAGS = {
     messages.DEBUG : "alert-info",
